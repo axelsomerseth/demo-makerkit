@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    "types": ["vitest/globals"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ES2020",
+    "strict": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/core/*": ["./app/core/*"],
+      "~/lib/*": ["./app/lib/*"],
+      "~/components/*": ["./app/components/*"],
+      "~/configuration": ["./app/configuration.ts"]
+    },
+    "skipLibCheck": true,
+    // Remix takes care of building everything in `remix build`.
+    "noEmit": true
+  },
+  "exclude": ["./cypress", "./cypress.config.ts"],
+  "include": ["remix.env.d.ts", "./@types/global.d.ts", "**/*.ts", "**/*.tsx"]
+}

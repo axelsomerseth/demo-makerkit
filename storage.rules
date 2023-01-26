@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function getUserId() {
+        return request.auth.uid;
+    }
+
+    function getOrganization(uid) {
+        return firestore.get(/databases/(default)/documents/organizations/$(uid));
+    }
+
+    match /organizations/{organizationId}/{fileName=**} {
+      allow read, write: if getUserId() in getOrganization(organizationId).data.members;
+    }
+
+    match /profiles/{userId}/{fileName=**} {
+      allow read: if request.auth != null;
+      allow write: if getUserId() == userId;
+    }
+  }
+}

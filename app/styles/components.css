@@ -1,0 +1,694 @@
+/* Start purging... */
+@tailwind components;
+
+@layer components {
+  /* Global Link Style */
+  a {
+    @apply outline-2 outline-primary-200 active:outline-none;
+  }
+
+  /* Container.tsx */
+  .Container {
+    @apply container mx-auto px-5 2xl:px-0;
+  }
+
+  /* NavigationContainer.tsx */
+  .NavigationContainer {
+    @apply border-b border-gray-50 dark:border-black-400 dark:border-black-400;
+  }
+
+  /* NavigationMenu.tsx */
+  .NavigationMenu {
+    @apply hidden flex-1 flex-row flex-wrap
+        items-center space-x-1 dark:text-gray-300 lg:flex lg:space-x-2;
+  }
+
+  .NavigationMenu.VerticalNavigationMenu {
+    @apply flex flex-row items-start justify-between space-x-2
+        lg:flex-col lg:justify-start lg:space-x-0 lg:space-y-2;
+  }
+
+  /* NavigationItem.tsx */
+  .NavigationItem {
+    @apply flex items-center justify-center
+        justify-center rounded-md
+        rounded-md py-1 px-1 text-sm font-medium
+        leading-loose text-gray-700 transition-colors
+        dark:text-gray-300 lg:px-3;
+  }
+
+  .NavigationItemActive {
+    @apply bg-gray-100 font-semibold dark:bg-black-300 dark:text-white;
+  }
+
+  .SecondaryNavigationMenu .NavigationItemActive {
+    @apply bg-transparent font-semibold;
+  }
+
+  .BorderedNavigationMenu .NavigationItem {
+    @apply relative top-[1px] border-b-[0.2rem] border-transparent py-3;
+  }
+
+  .BorderedNavigationMenu .NavigationItemActive {
+    @apply rounded-none border-primary-500 bg-transparent font-medium text-current;
+  }
+
+  .NavigationItemNotActive {
+    @apply text-gray-500 hover:text-current active:text-current
+        dark:text-gray-400 dark:hover:text-white;
+  }
+
+  .NavigationItemActive {
+    @apply font-semibold text-black-600 dark:text-white;
+  }
+
+  .NavigationItem[aria-disabled='true'] {
+    @apply cursor-not-allowed text-gray-300 dark:text-gray-600;
+  }
+
+  /* SectionSeparator.tsx */
+  .SectionSeparator {
+    @apply mt-16 mb-14 dark:border-black-300;
+  }
+
+  /* SubHeading.tsx */
+  .SubHeading {
+    @apply text-lg font-normal text-gray-500 dark:text-gray-400
+        lg:text-xl lg:leading-[2.2rem];
+  }
+
+  /* Badge.tsx */
+  .Badge {
+    @apply flex items-center space-x-2 font-medium;
+  }
+
+  .Badge.ColorNormal {
+    @apply bg-gray-100 text-gray-500
+        dark:bg-black-300 dark:text-gray-300;
+  }
+
+  .Badge.ColorSuccess {
+    @apply bg-green-100 font-semibold
+        text-green-700 dark:bg-black-300;
+  }
+
+  .Badge.SizeNormal {
+    @apply rounded-lg px-3 py-2 text-sm;
+  }
+
+  .Badge.SizeSmall {
+    @apply rounded px-2 py-1 text-xs;
+  }
+
+  /* Hero.tsx */
+  .Hero {
+    @apply my-2 text-4xl
+            font-extrabold tracking-tight
+            dark:text-white sm:my-6 md:leading-none;
+  }
+
+  /** Alert.tsx */
+  .Alert {
+    @apply relative flex items-center justify-between rounded border-l-4
+        p-6 text-base font-medium text-black-300;
+  }
+
+  .Alert .AlertIcon {
+    @apply absolute top-[-0.25rem] left-[-0.75rem]
+        h-[2rem] w-[2rem] rounded-full bg-white
+        p-[0.1rem] dark:bg-black-500;
+  }
+
+  .Alert.AlertSuccess {
+    @apply border-green-500 bg-green-50 text-green-900 dark:bg-green-500/10 dark:text-green-500;
+  }
+
+  .Alert.AlertSuccess .AlertIcon {
+    @apply text-green-600;
+  }
+
+  .Alert.AlertError {
+    @apply border-red-500 bg-red-50 text-red-900 dark:bg-red-500/10 dark:text-red-500;
+  }
+
+  .Alert.AlertError .AlertIcon {
+    @apply text-red-600;
+  }
+
+  .Alert.AlertWarn {
+    @apply border-orange-500 bg-orange-50 text-orange-900 dark:bg-orange-500/10 dark:text-orange-500;
+  }
+
+  .Alert.AlertWarn .AlertIcon {
+    @apply p-[0.3rem] text-orange-600;
+  }
+
+  .Alert.AlertInfo {
+    @apply border-blue-500 bg-blue-50 text-blue-900 dark:bg-blue-500/10 dark:text-blue-500;
+  }
+
+  .Alert.AlertInfo .AlertIcon {
+    @apply text-blue-600;
+  }
+
+  /* TextField.tsx */
+  .TextField {
+    @apply flex flex-col space-y-1;
+  }
+
+  .TextFieldInputContainer {
+    @apply relative flex flex
+        h-11 w-full items-center rounded-md border
+        border-gray-200 bg-white text-sm font-medium
+        text-gray-800 shadow-sm ring-primary-500 transition-all duration-300
+        focus-within:border-transparent focus-within:ring-2 hover:border-gray-300 hover:bg-gray-50
+        focus-within:hover:border-transparent focus:border-transparent
+        dark:border-black-200 dark:bg-black-500
+        dark:text-gray-200 dark:hover:border-black-100 dark:focus:bg-black-400;
+  }
+
+  .TextFieldInputContainerDisabled {
+    @apply cursor-not-allowed bg-gray-100 hover:bg-gray-100 dark:bg-black-400;
+  }
+
+  .TextFieldInputContainer input {
+    @apply flex-auto bg-transparent px-2.5 outline-none;
+  }
+
+  .TextFieldInputContainer input:-webkit-autofill,
+  .TextFieldInputContainer input:-webkit-autofill:hover,
+  .TextFieldInputContainer input:-webkit-autofill:active,
+  .TextFieldInputContainer input:-webkit-autofill:focus {
+    box-shadow: inset 0 0 0 1000px transparent;
+  }
+
+  .TextFieldInputContainer input[data-autocompleted] {
+    @apply bg-transparent;
+  }
+
+  .TextFieldInputContainer textarea {
+    @apply min-h-[60px] flex-auto resize-none bg-transparent
+        py-2 px-2 outline-none;
+  }
+
+  .TextFieldInputContainer.small {
+    @apply h-8;
+  }
+
+  .TextFieldInput[type='file'] {
+    @apply flex h-10 w-full
+        cursor-pointer items-center justify-center border-transparent bg-transparent
+        py-2 text-sm shadow-none
+        file:mr-4 file:cursor-pointer
+        file:rounded-full file:border-0 file:bg-primary-500 file:py-2
+        file:px-4 file:text-sm file:font-semibold
+        file:text-white file:hover:bg-primary-600 file:active:bg-primary-700 dark:text-white;
+  }
+
+  .TextFieldHint {
+    @apply block pl-1 text-xs
+        font-normal leading-tight text-gray-500 dark:text-gray-400;
+  }
+
+  /* Label.tsx */
+  .Label {
+    @apply w-full text-sm font-medium text-gray-600 dark:text-gray-300;
+  }
+
+  .Label > * {
+    margin-top: 0.4rem;
+  }
+
+  .Label.no-margin > * {
+    margin-top: 0;
+  }
+
+  /* Button.tsx */
+  .Button {
+    @apply flex items-center justify-center
+        rounded-md font-semibold outline-none transition-colors focus:ring-2;
+  }
+
+  .Button.ButtonPrimary {
+    @apply bg-primary-500 text-primary-contrast
+        ring-primary-400 hover:bg-primary-600
+        active:bg-primary-700 dark:text-primary-contrast;
+  }
+
+  .Button.ButtonDanger {
+    @apply bg-red-400 text-white ring-red-300 hover:bg-red-500 active:bg-red-600;
+  }
+
+  .Button.ButtonSecondary {
+    @apply bg-gray-100 ring-gray-200 hover:bg-gray-200 active:bg-gray-200 dark:bg-black-300
+        dark:ring-black-200 dark:hover:bg-black-200 dark:active:bg-black-400;
+  }
+
+  .Button.ButtonTransparent {
+    @apply font-medium text-gray-800
+        ring-primary-50 hover:bg-gray-50
+        active:bg-gray-100 dark:text-gray-300 dark:ring-black-400
+        dark:hover:bg-black-400 dark:hover:text-white dark:active:bg-black-300;
+  }
+
+  .Button.GradientButton {
+    @apply flex justify-center !bg-gradient-to-r from-primary-400
+        to-primary-600 text-center text-white transition-all
+        hover:to-primary-700 hover:shadow-lg hover:shadow-primary-600
+        hover:shadow-primary-500/40 active:from-primary-500 md:h-auto md:w-auto;
+  }
+
+  .ButtonNormal {
+    @apply py-2.5 px-5 text-sm;
+  }
+
+  .ButtonLarge {
+    @apply h-12 py-3 px-5 text-lg;
+  }
+
+  .ButtonSmall {
+    @apply py-2 px-3 text-xs;
+  }
+
+  .Button.ButtonPrimaryOutline {
+    @apply border-2 border-primary-500
+        bg-transparent text-primary-700 hover:text-white;
+  }
+
+  .Button.ButtonDangerOutline {
+    @apply border-2 border-red-400
+        bg-transparent text-red-400 hover:text-white;
+  }
+
+  .Button.ButtonDangerFlat {
+    @apply bg-transparent text-red-500 ring-0 hover:bg-red-50
+        active:bg-red-100 dark:hover:bg-red-500/10 dark:active:bg-red-500/20;
+  }
+
+  .Button.ButtonDangerFlat {
+    @apply bg-transparent text-red-500 hover:bg-red-50 active:bg-red-100;
+  }
+
+  .Button[disabled],
+  .IconButton[disabled] {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  /* IconButton.tsx */
+  .IconButton {
+    @apply rounded-full bg-transparent p-1
+        outline-primary-300 ring-primary-400 transition-colors
+        duration-300 hover:bg-gray-100 focus:ring
+        dark:hover:bg-black-300 dark:active:bg-gray-100 dark:active:bg-black-200;
+  }
+
+  /* ImageUploadInput.tsx */
+  .ImageUploadInput {
+    @apply TextFieldInput relative cursor-pointer
+        rounded-lg border border-dashed
+        border-gray-200 bg-white
+        p-2.5 transition-colors duration-300
+        hover:bg-gray-50 dark:border-black-200
+        dark:bg-black-500 dark:hover:border-black-300 dark:hover:border-black-100;
+  }
+
+  /* Footer.tsx */
+  .Footer {
+    @apply py-8 lg:py-16;
+  }
+
+  /* Popover.tsx */
+  button.PopoverButton {
+    @apply flex w-full flex-row items-center
+        rounded-md border
+        border-gray-200 bg-white py-1 px-2.5
+        text-lg outline-none transition-colors hover:bg-gray-100 active:bg-gray-200
+        dark:border-black-300 dark:bg-black-500 dark:hover:bg-black-400
+        dark:focus:bg-black-300 dark:active:bg-black-100;
+  }
+
+  button.PopoverButtonActive {
+    @apply border-b-transparent;
+  }
+
+  .PopoverChevronDownIcon {
+    @apply ml-1 h-5 transition
+        duration-150 ease-in-out group-hover:text-opacity-80;
+  }
+
+  .PopoverPanel {
+    @apply absolute z-10 mt-0.5
+        w-full min-w-[12rem] transform rounded-md bg-white
+        px-2 shadow-lg dark:bg-black-400 sm:px-0;
+  }
+
+  .PopoverPanelItem {
+    @apply flex cursor-pointer items-center
+        bg-transparent transition
+        duration-150 ease-in-out focus:outline-none
+        active:bg-gray-100 dark:hover:bg-black-300 dark:active:bg-black-300;
+  }
+
+  .PopoverItemLabel {
+    @apply py-3 px-4 text-sm
+        font-medium text-gray-700
+        ellipsify hover:text-black-500 dark:text-gray-300 dark:hover:text-white;
+  }
+
+  .PopoverItemIcon {
+    @apply flex h-10 w-10 flex-shrink-0
+        items-center justify-center text-current sm:h-12 sm:w-12;
+  }
+
+  .TabsList {
+    @apply flex grid grid-cols-3 gap-1 px-1 py-1 dark:bg-black-500;
+  }
+
+  /* Tab.tsx */
+  .Tab {
+    @apply NavigationItem flex flex-1 justify-center;
+  }
+
+  .Tab:not(.TabSelected) {
+    @apply cursor-pointer hover:bg-gray-50
+        dark:bg-black-500 dark:hover:bg-black-400 dark:active:bg-black-300;
+  }
+
+  .TabSelected,
+  button.TabSelected {
+    @apply NavigationItemActive dark:text-gray-100;
+  }
+
+  /* ListBox.tsx */
+  .ListBoxButton {
+    @apply TextFieldInputContainer h-11 px-2.5 text-left
+        font-semibold hover:text-current dark:text-current;
+  }
+
+  .ListBoxButton.ListBoxButtonAlt {
+    @apply small border-transparent bg-gray-100 py-1 pl-3 font-bold
+        hover:bg-gray-200 dark:bg-black-300 dark:text-gray-200
+        dark:hover:bg-black-200;
+  }
+
+  .ListBoxButtonOpen {
+    @apply border-primary-500;
+  }
+
+  .ListBoxButtonIcon {
+    @apply pointer-events-none absolute inset-y-0 right-0
+        flex items-center pr-2;
+  }
+
+  .ListBoxOptionsContainer {
+    @apply absolute z-50 mt-0.5 max-h-96
+        w-full overflow-auto rounded-lg
+        bg-white text-base shadow-md dark:bg-black-300;
+  }
+
+  /* ListBoxOption.tsx */
+  .ListBoxOption {
+    @apply relative cursor-default select-none
+        border-b border-gray-50 py-3 pl-4
+        pr-4 text-sm font-semibold
+        transition-colors duration-75 dark:border-b-black-400;
+  }
+
+  .ListBoxOption.ListBoxOption[aria-disabled='true'] {
+    @apply text-gray-500;
+  }
+
+  .ListBoxOptionNotActive {
+    @apply text-gray-900 dark:bg-black-400 dark:text-gray-200;
+  }
+
+  .ListBoxOptionActive {
+    @apply cursor-pointer bg-gray-50
+        text-gray-900 dark:bg-black-300 dark:text-white;
+  }
+
+  .ListBoxOptionSelected {
+    @apply bg-gray-100 dark:bg-black-300 dark:text-white;
+  }
+
+  .ListBoxOptionIcon {
+    @apply absolute inset-y-0 right-0 top-3 items-center pr-3;
+  }
+
+  .ListBoxOptionDescription {
+    @apply text-[0.7rem] font-medium
+        leading-tight text-gray-600 dark:text-gray-400;
+  }
+
+  /* FallbackUserAvatar.tsx */
+  .FallbackUserAvatar {
+    @apply flex h-8 w-8 items-center justify-center
+        rounded-full bg-primary-500
+        text-lg font-extrabold uppercase text-black-500
+        text-primary-contrast transition-all;
+  }
+
+  /* Dropdown.tsx */
+  .DropdownMenu {
+    @apply block text-left lg:relative;
+  }
+
+  .DropdownMenuItemsContainer {
+    @apply absolute right-0 z-10 mt-2 w-full origin-top-right
+        border-t border-gray-50 bg-white py-1
+        shadow-xl focus:outline-none dark:border-black-300
+        dark:bg-black-300 lg:mt-2 lg:w-60 lg:rounded-md;
+
+    top: var(--dropdown-menu-items-top, auto);
+    bottom: var(--dropdown-menu-items-bottom, auto);
+  }
+
+  .DropdownItem {
+    @apply flex w-full flex-1 items-center border-none
+        duration-200 dark:text-white sm:text-sm;
+  }
+
+  .DropdownMenuButtonContainer {
+    @apply flex items-center;
+  }
+
+  .DropdownItem button[disabled],
+  .DropdownMenuButtonContainer button[disabled] {
+    @apply cursor-not-allowed opacity-40;
+  }
+
+  .DropdownButtonContainer {
+    @apply flex cursor-pointer items-center;
+  }
+
+  .DropdownButtonContainer button {
+    @apply h-full active:bg-gray-50 dark:outline-black-400 dark:active:bg-black-200;
+  }
+
+  .DropdownActiveItem .Button:not(.static) {
+    @apply rounded-none bg-gray-50 text-black-500 dark:bg-black-200 dark:text-current;
+  }
+
+  .DropdownActiveItem .Button.static {
+    @apply cursor-text;
+  }
+
+  .DropdownDivider {
+    @apply h-[1px] border-none bg-gray-200 dark:bg-black-200;
+  }
+
+  /* Documentation */
+  .DocumentationSidebarContainer {
+    @apply sticky inset-0 mt-6 hidden h-screen overflow-y-auto md:flex;
+  }
+
+  .DocumentationSidebarItem {
+    @apply flex w-full flex-1 rounded-md
+        py-1.5 px-2 text-sm text-gray-500 transition-colors
+        duration-300 hover:text-current active:bg-gray-100 dark:text-gray-400 dark:active:bg-black-400;
+  }
+
+  .DocumentationSidebarItemContainer:last-child {
+    @apply pb-24;
+  }
+
+  .DocumentationSidebarItemSelected {
+    @apply bg-primary-500/5 font-semibold text-current dark:text-primary-500;
+  }
+
+  .DocumentationSidebarItemNotSelected {
+    @apply border-l-gray-50 font-medium
+        hover:border-l-primary-400 dark:border-l-black-400 dark:hover:text-white;
+  }
+
+  .AuthProviderButton {
+    @apply relative border border-gray-200
+        text-gray-600 ring-primary-500 transition-all
+        hover:border-gray-300 hover:bg-gray-100 active:bg-gray-200
+        dark:border-black-300 dark:bg-black-400
+        dark:text-gray-200 dark:hover:border-black-100 dark:hover:bg-black-400/80 dark:active:bg-black-400;
+  }
+
+  .Toggle {
+    @apply h-6 w-12 cursor-pointer appearance-none
+        rounded-xl bg-gray-600 duration-300 ease-in-out dark:bg-gray-300;
+
+    transition: all 0.25s ease-in-out;
+    box-shadow: calc(1.5rem * -1) 0 0 2px #efefef inset, 0 0 0 2px #efefef inset;
+  }
+
+  .dark .Toggle {
+    box-shadow: calc(1.5rem * -1) 0 0 2px #525252 inset, 0 0 0 2px #525252 inset;
+  }
+
+  .Toggle:hover {
+    box-shadow: calc(1.5rem * -1) 0 0 2px #ddd inset, 0 0 0 2px #ddd inset;
+  }
+
+  .dark .Toggle:hover {
+    box-shadow: calc(1.5rem * -1) 0 0 2px #666 inset, 0 0 0 2px #666 inset;
+  }
+
+  .Toggle:focus-visible {
+    @apply outline outline-primary-500;
+
+    outline-offset: 2px;
+  }
+
+  .Toggle:checked {
+    @apply border-primary-400 border-opacity-100
+        bg-primary-500 bg-opacity-100;
+
+    box-shadow: 1.5rem 0 0 2px #eee inset, 0 0 0 2px #eee inset;
+  }
+
+  .dark .Toggle:checked {
+    box-shadow: 1.5rem 0 0 2px #444 inset, 0 0 0 2px #444 inset;
+  }
+
+  .Stepper {
+    @apply flex justify-between space-x-2 rounded-md
+        px-2 py-1 shadow-sm dark:border-black-400 dark:bg-black-400;
+  }
+
+  .StepperDivider {
+    @apply flex h-[2px] flex-1
+        bg-gray-300 transition-colors dark:bg-black-200;
+
+    align-items: center;
+    justify-items: center;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .StepperDivider:last-child {
+    display: none;
+  }
+
+  .StepperStepSelected + .StepperDivider,
+  .StepperStep.CompletedStep + .StepperDivider {
+    @apply bg-primary-500 text-primary-contrast;
+  }
+
+  .StepperStep:not(.StepperStepSelected):not(.CompletedStep):hover
+    + .StepperDivider {
+    @apply bg-primary-500/40;
+  }
+
+  .StepperStepCircle {
+    @apply flex h-[35px] w-[35px] items-center justify-center
+        rounded-full bg-gray-200 font-bold shadow shadow-none
+        transition-colors duration-150 dark:bg-black-200;
+  }
+
+  .StepperStep.StepperStepSelected {
+    @apply text-gray-600 dark:text-white;
+  }
+
+  .StepperStepSelected .StepperStepCircle {
+    @apply bg-primary-500 text-white;
+  }
+
+  .StepperStep {
+    @apply flex cursor-default items-center space-x-4 p-2
+        text-gray-600 outline-none transition-colors dark:text-gray-400;
+  }
+
+  .StepperStep.StepperStepActionable.StepperStepClickable:not(.StepperStepSelected):not([disabled]):hover {
+    @apply cursor-pointer text-gray-600 dark:text-primary-contrast;
+  }
+
+  .StepperStep.StepperStepActionable.StepperStepClickable:not(.StepperStepSelected):not([disabled]):hover
+    .StepperStepCircle {
+    @apply bg-primary-500 text-primary-contrast;
+  }
+
+  .StepperStep:not(.StepperStepSelected):disabled,
+  .StepperStep:not(.Actionable):not(.StepperStepSelected) {
+    @apply text-gray-400 dark:text-gray-500;
+  }
+
+  /*
+     faq.tsx
+     */
+  .FaqItem {
+    @apply rounded-xl border border-gray-100
+        bg-gray-50 p-8 dark:border-black-300
+        dark:bg-black-500;
+  }
+
+  /* PlanSelector.tsx */
+  .PlanSelectorRadioItem {
+    @apply relative flex cursor-pointer rounded-lg border border-gray-200
+        px-5 py-4 shadow-sm transition-all duration-100 hover:border-gray-300
+        focus:outline-none dark:border-black-400 dark:hover:border-black-300;
+  }
+
+  .PlanSelectorRadioItemNonActive {
+    @apply hover:bg-gray-50 active:bg-gray-200
+        dark:bg-black-200 dark:hover:bg-black-300
+        dark:active:bg-black-100;
+  }
+
+  .PlanSelectorRadioItemChecked {
+    @apply bg-gray-100 ring ring-primary-500 dark:bg-black-300;
+  }
+
+  .PlanSelectorCheckIcon {
+    @apply h-6 w-6 rounded-full bg-primary-500 fill-transparent;
+  }
+
+  .PlanSelectorName {
+    @apply text-lg font-bold text-current dark:text-white;
+  }
+
+  .PlanSelectorPrice {
+    @apply text-base font-bold dark:text-white;
+  }
+
+  .Table {
+    @apply w-full table-fixed border-collapse border-spacing-0 rounded-lg bg-white p-1 dark:bg-black-500;
+  }
+
+  .Table thead {
+    @apply sticky top-0 m-0 bg-white dark:bg-black-500;
+  }
+
+  .Table th {
+    @apply border-b border-gray-200 py-4 text-left text-xs
+        font-bold uppercase text-gray-600 dark:border-black-300 dark:text-gray-400;
+  }
+
+  .Table tr {
+    @apply border-b border-gray-100 dark:border-black-400;
+  }
+
+  .Table tr:last-child {
+    @apply border-transparent;
+  }
+
+  .Table td {
+    @apply py-2.5 text-sm;
+  }
+}
+/* Stop purging. */
