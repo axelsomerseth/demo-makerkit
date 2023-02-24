@@ -1,6 +1,11 @@
-function TasksPage(){
-    return(
-        <h1>Hello world</h1>
-    )
+import TasksLayout from '~/components/tasks/TasksLayout';
+
+function TasksPage() {
+  return (
+    <>
+      <TasksLayout />
+    </>
+  );
 }
+
 export default TasksPage;
