@@ -1,6 +1,7 @@
 {
   "dashboardTabLabel": "Dashboard",
   "organizationSettingsTabLabel": "Organization",
+  "tasksTabLabel": "Tasks",
   "settingsTabLabel": "Settings",
   "profileSettingsTabLabel": "Profile",
   "subscriptionSettingsTabLabel": "Subscription",
