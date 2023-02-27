@@ -7,7 +7,7 @@ export interface Task {
   organizationId: string;
   dueDate: Timestamp;
   isDone: boolean;
-  createdAt: Timestamp;
+  createdAt?: Timestamp;
   updatedAt?: Timestamp;
   createdBy: string;
 }
