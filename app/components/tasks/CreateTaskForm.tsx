@@ -8,10 +8,10 @@ import OrganizationContext from '~/lib/contexts/organization';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-const CreateTaskForm: React.FC<{}> = () => {
-  const defaultDueDate = new Date();
-  defaultDueDate.setHours(defaultDueDate.getHours() + 3);
+const defaultDueDate = new Date();
+defaultDueDate.setHours(defaultDueDate.getHours() + 3);
 
+const CreateTaskForm: React.FC<{}> = () => {
   const { organization } = useContext(OrganizationContext);
   const { t } = useTranslation();
   const [createTask, requestState] = useCreateTask();
@@ -20,7 +20,7 @@ const CreateTaskForm: React.FC<{}> = () => {
       name: '',
       description: '',
       organizationId: organization?.id as string,
-      dueDate: Timestamp.fromDate(defaultDueDate),
+      dueDate: defaultDueDate,
       isDone: false,
     },
   });
@@ -33,7 +33,7 @@ const CreateTaskForm: React.FC<{}> = () => {
     name: string,
     description: string,
     organizationId: string,
-    dueDate: Timestamp,
+    dueDate: Date,
     isDone: boolean
   ) => {
     // TODO: fill in this function to submit the form.
@@ -45,7 +45,13 @@ const CreateTaskForm: React.FC<{}> = () => {
       isDone,
     });
     return toast.promise(
-      createTask(name, description, organizationId, dueDate, isDone),
+      createTask(
+        name,
+        description,
+        organizationId,
+        Timestamp.fromDate(new Date(dueDate)),
+        isDone
+      ),
       {
         loading: t<string>('task:createTaskLoading'),
         success: t<string>('task:createTaskSuccess'),
@@ -59,7 +65,7 @@ const CreateTaskForm: React.FC<{}> = () => {
       name: '',
       description: '',
       organizationId: organization?.id as string,
-      dueDate: Timestamp.now(),
+      dueDate: defaultDueDate,
       isDone: false,
     });
   }, [reset, organization?.id]);
