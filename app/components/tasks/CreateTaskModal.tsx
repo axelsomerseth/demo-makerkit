@@ -1,7 +1,7 @@
 import { useNavigate } from '@remix-run/react';
 import { useState } from 'react';
 import Modal from '~/core/ui/Modal';
-import CreateTaskForm from './CreateTaskFrom';
+import CreateTaskForm from './CreateTaskForm';
 
 const CreateTaskModal: React.FCC<{}> = () => {
   const [isOpen, setIsOpen] = useState(true);
