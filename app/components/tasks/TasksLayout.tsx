@@ -3,7 +3,11 @@ import CreateTaskButton from './CreateTaskButton';
 const TasksLayout: React.FC<{}> = () => {
   return (
     <>
-      <CreateTaskButton>Create a Task</CreateTaskButton>
+      <div className={'mt-5 mb-5 flex justify-center'}>
+        <div className={'flex-initial'}>
+          <CreateTaskButton>Create a Task</CreateTaskButton>
+        </div>
+      </div>
     </>
   );
 };
