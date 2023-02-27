@@ -57,9 +57,7 @@ function useCreateTask() {
           createdAt: newTask.createdAt,
           createdBy: newTask.createdBy,
         });
-        console.log(taskDoc);
       } catch (error) {
-        console.error(error);
         setError((error as FirebaseError).message);
       }
     },

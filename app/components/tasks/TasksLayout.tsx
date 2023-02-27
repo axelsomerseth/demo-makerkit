@@ -1,3 +1,4 @@
+import { Trans } from 'react-i18next';
 import CreateTaskButton from './CreateTaskButton';
 
 const TasksLayout: React.FC<{}> = () => {
@@ -5,7 +6,9 @@ const TasksLayout: React.FC<{}> = () => {
     <>
       <div className={'mt-5 mb-5 flex justify-center'}>
         <div className={'flex-initial'}>
-          <CreateTaskButton>Create a Task</CreateTaskButton>
+          <CreateTaskButton>
+            <Trans i18nKey={'task:createTaskSubmitLabel'} />
+          </CreateTaskButton>
         </div>
       </div>
     </>

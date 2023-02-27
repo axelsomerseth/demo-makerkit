@@ -6,7 +6,8 @@ import { Timestamp } from 'firebase/firestore';
 import useCreateTask from '~/lib/tasks/hooks/use-create-task';
 import OrganizationContext from '~/lib/contexts/organization';
 import { toast } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
+import { useNavigate } from '@remix-run/react';
 
 const defaultDueDate = new Date();
 defaultDueDate.setHours(defaultDueDate.getHours() + 3);
@@ -14,6 +15,7 @@ defaultDueDate.setHours(defaultDueDate.getHours() + 3);
 const CreateTaskForm: React.FC<{}> = () => {
   const { organization } = useContext(OrganizationContext);
   const { t } = useTranslation();
+  const navigation = useNavigate();
   const [createTask, requestState] = useCreateTask();
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -36,14 +38,6 @@ const CreateTaskForm: React.FC<{}> = () => {
     dueDate: Date,
     isDone: boolean
   ) => {
-    // TODO: fill in this function to submit the form.
-    console.log({
-      name,
-      description,
-      organizationId,
-      dueDate,
-      isDone,
-    });
     return toast.promise(
       createTask(
         name,
@@ -54,7 +48,10 @@ const CreateTaskForm: React.FC<{}> = () => {
       ),
       {
         loading: t<string>('task:createTaskLoading'),
-        success: t<string>('task:createTaskSuccess'),
+        success: () => {
+          navigation(-1);
+          return t<string>('task:createTaskSuccess');
+        },
         error: t<string>('task:createTaskError'),
       }
     );
@@ -93,7 +90,7 @@ const CreateTaskForm: React.FC<{}> = () => {
             required={nameControl.required}
             onBlur={nameControl.onBlur}
             onChange={nameControl.onChange}
-            placeholder="name"
+            placeholder="Enter a task name"
             data-cy={'task-name-input'}
           />
         </TextField.Label>
@@ -108,7 +105,7 @@ const CreateTaskForm: React.FC<{}> = () => {
             required={descriptionControl.required}
             onBlur={descriptionControl.onBlur}
             onChange={descriptionControl.onChange}
-            placeholder="description"
+            placeholder="Please enter a description"
             data-cy={'task-description-input'}
           />
         </TextField.Label>
@@ -124,13 +121,14 @@ const CreateTaskForm: React.FC<{}> = () => {
             required={dueDateControl.required}
             onBlur={dueDateControl.onBlur}
             onChange={dueDateControl.onChange}
-            placeholder="due date"
             data-cy={'task-due-date-input'}
           />
         </TextField.Label>
       </TextField>
 
-      <Button className="w-full">Create Task</Button>
+      <Button className="w-full" loading={requestState.loading}>
+        <Trans i18nKey={"task:createTaskSubmitLabel"}/>
+      </Button>
     </form>
   );
 };
