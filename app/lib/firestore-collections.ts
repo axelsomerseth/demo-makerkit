@@ -8,4 +8,5 @@
 
 export const USERS_COLLECTION = `users`;
 export const ORGANIZATIONS_COLLECTION = `organizations`;
+export const TASKS_COLLECTION = `tasks`;
 export const INVITES_COLLECTION = `invites`;

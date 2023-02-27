@@ -1,17 +1,22 @@
 import TextField from '~/core/ui/TextField';
 import Button from '~/core/ui/Button';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Timestamp } from 'firebase/firestore';
+import useCreateTask from '~/lib/tasks/hooks/use-create-task';
+import OrganizationContext from '~/lib/contexts/organization';
 
 const CreateTaskForm: React.FC<{}> = () => {
   const defaultDueDate = new Date();
   defaultDueDate.setHours(defaultDueDate.getHours() + 3);
+
+  const { organization } = useContext(OrganizationContext);
+  const [createTask, requestState] = useCreateTask();
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       name: '',
       description: '',
-      organizationId: '', // TODO: get from context
+      organizationId: organization?.id as string,
       dueDate: Timestamp.fromDate(defaultDueDate),
       isDone: false,
     },
@@ -21,25 +26,33 @@ const CreateTaskForm: React.FC<{}> = () => {
   const descriptionControl = register('description', { required: true });
   const dueDateControl = register('dueDate', { required: true });
 
-  const onSubmit = (
+  const onSubmit = async (
     name: string,
     description: string,
     organizationId: string,
     dueDate: Timestamp,
     isDone: boolean
   ) => {
-    console.log(name, description, organizationId, dueDate, isDone);
+    // TODO: fill in this function to submit the form.
+    console.log({
+      name,
+      description,
+      organizationId,
+      dueDate,
+      isDone,
+    });
+    await createTask(name, description, organizationId, dueDate, isDone);
   };
 
   useEffect(() => {
     reset({
       name: '',
       description: '',
-      organizationId: '',
+      organizationId: organization?.id as string,
       dueDate: Timestamp.now(),
       isDone: false,
     });
-  }, [reset]);
+  }, [reset, organization?.id]);
 
   return (
     <form
