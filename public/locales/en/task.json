@@ -1,0 +1,5 @@
+{
+  "createTaskLoading": "Creating task...",
+  "createTaskSuccess": "Task created successfully",
+  "createTaskError": "Task not create. Please try again later."
+}

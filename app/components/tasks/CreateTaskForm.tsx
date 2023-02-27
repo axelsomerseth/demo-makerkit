@@ -5,12 +5,15 @@ import { useContext, useEffect } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import useCreateTask from '~/lib/tasks/hooks/use-create-task';
 import OrganizationContext from '~/lib/contexts/organization';
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const CreateTaskForm: React.FC<{}> = () => {
   const defaultDueDate = new Date();
   defaultDueDate.setHours(defaultDueDate.getHours() + 3);
 
   const { organization } = useContext(OrganizationContext);
+  const { t } = useTranslation();
   const [createTask, requestState] = useCreateTask();
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -41,7 +44,14 @@ const CreateTaskForm: React.FC<{}> = () => {
       dueDate,
       isDone,
     });
-    await createTask(name, description, organizationId, dueDate, isDone);
+    return toast.promise(
+      createTask(name, description, organizationId, dueDate, isDone),
+      {
+        loading: t<string>('task:createTaskLoading'),
+        success: t<string>('task:createTaskSuccess'),
+        error: t<string>('task:createTaskError'),
+      }
+    );
   };
 
   useEffect(() => {
