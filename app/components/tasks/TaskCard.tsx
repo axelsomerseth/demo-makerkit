@@ -22,19 +22,32 @@ const TaskCard: React.FCC<{
   }, [isDone]);
 
   return (
-    <div className="ml-2 mr-2 flex justify-between rounded-2xl border border-gray-100 bg-white p-5 shadow dark:border-black-400 dark:border-gray-600 dark:bg-black-500 dark:shadow">
-      <div className="flex-initial">
-        <SubHeading>{name}</SubHeading>
-        <p>{description}</p>
-        <p>
-          <Trans i18nKey={'task:dueDate'} />
-          {' ' + formatDistance(dueDate, new Date(), { addSuffix: true })}
-        </p>
-        <p>
-          <Trans i18nKey={'task:createdAt'} />
-          {' ' + formatDistance(createdAt, new Date(), { addSuffix: true })}
-        </p>
-        {/* TODO: Created By (maybe) */}
+    <div
+      className={
+        'ml-2 mr-2 flex justify-between rounded-2xl border border-gray-100 bg-white p-5 shadow dark:border-black-400 dark:border-gray-600 dark:bg-black-500 dark:shadow'
+      }
+    >
+      <div className="h-36 flex-initial">
+        <div className="flex flex-col justify-around">
+          <div className={(enabled ? 'line-through ' : '') + 'flex-initial'}>
+            <SubHeading>{name}</SubHeading>
+          </div>
+          <div className={(enabled ? 'line-through ' : '') + 'flex-initial'}>
+            <p className={'text-gray-400 dark:text-gray-500'}>{description}</p>
+          </div>
+          <div className={(enabled ? 'line-through ' : '') + 'flex-initial'}>
+            <p className={'text-gray-400 dark:text-gray-500'}>
+              <Trans i18nKey={'task:dueDate'} />
+              {' ' + formatDistance(dueDate, new Date(), { addSuffix: true })}
+            </p>
+          </div>
+          <div className="flex-initial">
+            <p className={'italic text-gray-400 dark:text-gray-500'}>
+              <Trans i18nKey={'task:createdAt'} />
+              {' ' + formatDistance(createdAt, new Date(), { addSuffix: true })}
+            </p>
+          </div>
+        </div>
       </div>
       <div className="flex-initial">
         <div className="flex flex-col items-center space-y-3">

@@ -14,6 +14,7 @@ const TasksLayout: React.FC<{}> = () => {
     error,
     status,
   } = useListTasks(organization?.id as string);
+
   return (
     <>
       <div className={'mt-5 mb-5 flex justify-center'}>
@@ -41,8 +42,8 @@ const TasksLayout: React.FC<{}> = () => {
                 name={task.name}
                 description={task.description}
                 isDone={task.isDone}
-                dueDate={task.dueDate.toDate()}
-                createdAt={task.createdAt.toDate()}
+                dueDate={task.dueDate.toDate() as Date}
+                createdAt={task.createdAt?.toDate() as Date}
                 createdBy={task.createdBy}
               />
             );
