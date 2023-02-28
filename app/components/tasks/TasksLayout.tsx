@@ -1,21 +1,19 @@
 import { Trans } from 'react-i18next';
+import useListTasks from '~/lib/tasks/hooks/use-list-tasks';
 import CreateTaskButton from './CreateTaskButton';
 import TaskCard from './TaskCard';
-
-const sampleData = [
-  {
-    id: 'akondajDHJSBD',
-    name: 'Title 1',
-    description: 'Description 1',
-    organizationId: 'nvjikhanshjvabsdhv',
-    dueDate: new Date(),
-    isDone: false,
-    createdAt: new Date(),
-    createdBy: 'ansduijabnsdhjbdhabsd',
-  },
-];
+import { useContext } from 'react';
+import OrganizationContext from '~/lib/contexts/organization';
+import If from '~/core/ui/If';
+import SubHeading from '~/core/ui/SubHeading';
 
 const TasksLayout: React.FC<{}> = () => {
+  const { organization } = useContext(OrganizationContext);
+  const {
+    data: tasks,
+    error,
+    status,
+  } = useListTasks(organization?.id as string);
   return (
     <>
       <div className={'mt-5 mb-5 flex justify-center'}>
@@ -25,21 +23,39 @@ const TasksLayout: React.FC<{}> = () => {
           </CreateTaskButton>
         </div>
       </div>
-      <div className={'grid-cols grid gap-3'}>
-        {sampleData.map((task) => {
-          return (
-            <TaskCard
-              key={task.id}
-              name={task.name}
-              description={task.description}
-              isDone={task.isDone}
-              dueDate={task.dueDate}
-              createdAt={task.createdAt}
-              createdBy={task.createdBy}
-            />
-          );
-        })}
-      </div>
+      <If condition={status === 'loading'}>
+        <div className={'flex justify-center'}>
+          <div className={'flex-initial'}>
+            <SubHeading>
+              <Trans i18nKey={'task:loadingList'} />
+            </SubHeading>
+          </div>
+        </div>
+      </If>
+      <If condition={status === 'success'}>
+        <div className={'grid-cols grid gap-3'}>
+          {tasks.map((task) => {
+            return (
+              <TaskCard
+                key={task.id}
+                name={task.name}
+                description={task.description}
+                isDone={task.isDone}
+                dueDate={task.dueDate}
+                createdAt={task.createdAt}
+                createdBy={task.createdBy}
+              />
+            );
+          })}
+        </div>
+      </If>
+      <If condition={status === 'error'}>
+        <div className={'flex justify-center'}>
+          <div className={'flex-initial'}>
+            <SubHeading>{error?.message}</SubHeading>
+          </div>
+        </div>
+      </If>
     </>
   );
 };

@@ -3,5 +3,6 @@
   "createTaskSuccess": "Task created successfully",
   "createTaskError": "Task not create. Please try again later.",
   "createTaskSubmitLabel": "Create Task",
-  "createTaskModalHeading": "Create Task"
+  "createTaskModalHeading": "Create Task",
+  "loadingList": "Loading..."
 }
