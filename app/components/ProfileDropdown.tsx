@@ -14,6 +14,7 @@ import type { SerializedUserAuthData } from '~/core/session/types/user-session';
 
 import Dropdown from '~/core/ui/Dropdown';
 import ProfileAvatar from './ProfileAvatar';
+import DarkModeToggle from './DarkModeToggle';
 
 const ProfileDropdown: React.FCC<{
   user: Maybe<SerializedUserAuthData>;
@@ -49,6 +50,19 @@ const ProfileDropdown: React.FCC<{
       </div>
     </Dropdown.Item>,
     <Dropdown.Divider key={'divider1'} />,
+    <div key={'toggleDarkMode'}>
+      <span className={'flex w-full flex-1 items-center justify-center'}>
+        <span className={'flex w-full flex-1 px-5 py-3 font-normal'}>
+          <span className={'space-between flex w-full items-center space-x-4'}>
+            <DarkModeToggle />
+            <span className={'text-sm'}>
+              <Trans i18nKey={'common:toggleDarkMode'} />
+            </span>
+          </span>
+        </span>
+      </span>
+    </div>,
+    <Dropdown.Divider key={'divider2'} />,
     <ProfileDropdownMenuItem key={'profile'} href={'/dashboard'}>
       <Squares2X2Icon className={'h-5'} />
       <span>
@@ -61,7 +75,7 @@ const ProfileDropdown: React.FCC<{
         <Trans i18nKey={'common:settingsTabLabel'} />
       </span>
     </ProfileDropdownMenuItem>,
-    <Dropdown.Divider key={'divider2'} />,
+    <Dropdown.Divider key={'divider3'} />,
     <ProfileDropdownMenuItem key={'sign-out'} onClick={signOutRequested}>
       <ArrowLeftOnRectangleIcon className={'h-5'} />
       <span>

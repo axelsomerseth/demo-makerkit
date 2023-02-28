@@ -24,7 +24,6 @@
   "documentation": "Documentation",
   "getStarted": "Get Started",
   "retry": "Retry",
-  "toggleDarkMode": "Toggle Dark Mode",
   "roles": {
     "owner": {
       "label": "Owner",
