@@ -41,8 +41,8 @@ const TasksLayout: React.FC<{}> = () => {
                 name={task.name}
                 description={task.description}
                 isDone={task.isDone}
-                dueDate={task.dueDate}
-                createdAt={task.createdAt}
+                dueDate={task.dueDate.toDate()}
+                createdAt={task.createdAt.toDate()}
                 createdBy={task.createdBy}
               />
             );

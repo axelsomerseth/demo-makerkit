@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import SubHeading from '~/core/ui/SubHeading';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import IconButton from '~/core/ui/IconButton';
+import { formatDistance } from 'date-fns';
+import { Trans } from 'react-i18next';
 
 const TaskCard: React.FCC<{
   name: string;
@@ -24,8 +26,14 @@ const TaskCard: React.FCC<{
       <div className="flex-initial">
         <SubHeading>{name}</SubHeading>
         <p>{description}</p>
-        {/* TODO: Due Date */}
-        {/* TODO: Created At */}
+        <p>
+          <Trans i18nKey={'task:dueDate'} />
+          {' ' + formatDistance(dueDate, new Date(), { addSuffix: true })}
+        </p>
+        <p>
+          <Trans i18nKey={'task:createdAt'} />
+          {' ' + formatDistance(createdAt, new Date(), { addSuffix: true })}
+        </p>
         {/* TODO: Created By (maybe) */}
       </div>
       <div className="flex-initial">
