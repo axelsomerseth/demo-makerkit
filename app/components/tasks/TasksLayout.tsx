@@ -36,18 +36,7 @@ const TasksLayout: React.FC<{}> = () => {
       <If condition={status === 'success'}>
         <div className={'grid-cols grid gap-3'}>
           {tasks.map((task) => {
-            return (
-              <TaskCard
-                key={task.id}
-                id={task.id as string}
-                name={task.name}
-                description={task.description}
-                isDone={task.isDone}
-                dueDate={task.dueDate.toDate() as Date}
-                createdAt={task.createdAt?.toDate() as Date}
-                createdBy={task.createdBy}
-              />
-            );
+            return <TaskCard key={task.id} task={task} />;
           })}
         </div>
       </If>

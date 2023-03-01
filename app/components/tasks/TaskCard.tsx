@@ -1,27 +1,24 @@
 import { Switch } from '@headlessui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SubHeading from '~/core/ui/SubHeading';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import IconButton from '~/core/ui/IconButton';
 import { formatDistance } from 'date-fns';
 import { Trans } from 'react-i18next';
 import DeleteTaskButton from './DeleteTaskButton';
+import useCompleteTask from '~/lib/tasks/hooks/use-complete-task';
+import type { Task } from '~/lib/tasks/types/task';
 
 const TaskCard: React.FCC<{
-  id: string;
-  name: string;
-  description: string;
-  dueDate: Date;
-  isDone: boolean;
-  createdAt: Date;
-  updatedAt?: Date;
-  createdBy: string;
-}> = ({ id, name, description, dueDate, isDone, createdAt, createdBy }) => {
-  const [enabled, setEnabled] = useState(false);
+  task: Task;
+}> = ({ task }) => {
+  const [enabled, setEnabled] = useState(task.isDone);
+  const [completeTask] = useCompleteTask();
 
-  useEffect(() => {
-    setEnabled(() => isDone);
-  }, [isDone]);
+  const onSwitchToggle = async () => {
+    setEnabled((prevValue) => !prevValue);
+    await completeTask(task);
+  };
 
   return (
     <div
@@ -32,21 +29,29 @@ const TaskCard: React.FCC<{
       <div className="h-36 flex-initial">
         <div className="flex flex-col justify-around">
           <div className={(enabled ? 'line-through ' : '') + 'flex-initial'}>
-            <SubHeading>{name}</SubHeading>
+            <SubHeading>{task.name}</SubHeading>
           </div>
           <div className={(enabled ? 'line-through ' : '') + 'flex-initial'}>
-            <p className={'text-gray-400 dark:text-gray-500'}>{description}</p>
+            <p className={'text-gray-400 dark:text-gray-500'}>
+              {task.description}
+            </p>
           </div>
           <div className={(enabled ? 'line-through ' : '') + 'flex-initial'}>
             <p className={'text-gray-400 dark:text-gray-500'}>
               <Trans i18nKey={'task:dueDate'} />
-              {' ' + formatDistance(dueDate, new Date(), { addSuffix: true })}
+              {' ' +
+                formatDistance(task.dueDate.toDate(), new Date(), {
+                  addSuffix: true,
+                })}
             </p>
           </div>
           <div className="flex-initial">
             <p className={'italic text-gray-400 dark:text-gray-500'}>
               <Trans i18nKey={'task:createdAt'} />
-              {' ' + formatDistance(createdAt, new Date(), { addSuffix: true })}
+              {' ' +
+                formatDistance(task.createdAt?.toDate() as Date, new Date(), {
+                  addSuffix: true,
+                })}
             </p>
           </div>
         </div>
@@ -56,7 +61,7 @@ const TaskCard: React.FCC<{
           <div className="mt-2 mb-2">
             <Switch
               checked={enabled}
-              onChange={setEnabled}
+              onChange={onSwitchToggle}
               className={`${
                 enabled ? 'bg-primary-500' : 'bg-gray-400'
               } relative inline-flex h-6 w-11 items-center rounded-full`}
@@ -71,7 +76,7 @@ const TaskCard: React.FCC<{
           <IconButton>
             <PencilIcon className="h-6" />
           </IconButton>
-          <DeleteTaskButton id={id} />
+          <DeleteTaskButton id={task.id as string} />
         </div>
       </div>
     </div>

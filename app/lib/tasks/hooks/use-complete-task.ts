@@ -19,15 +19,21 @@ function useCompleteTask() {
     async (task: Task) => {
       setLoading(true);
       try {
-        const taskDoc = doc(firestore, TASKS_COLLECTION, task.id as string);
+        const taskDoc = doc(
+          firestore,
+          TASKS_COLLECTION,
+          `/${task.id as string}`
+        );
         await updateDoc(taskDoc, { isDone: !task.isDone });
         setData(task);
       } catch (error) {
         setError((error as FirebaseError).message);
+        console.error(error);
       }
     },
-    [setData, setError, setLoading]
+    [setData, setError, setLoading, firestore]
   );
+
   return [completeTaskCallback, state] as [
     typeof completeTaskCallback,
     typeof state

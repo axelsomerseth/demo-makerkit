@@ -7,6 +7,9 @@
   "loadingList": "Loading...",
   "dueDate": "Due",
   "createdAt": "Created",
+  "completeTaskLoading": "Completing task...",
+  "completeTaskSuccess": "Task completed successfully",
+  "completeTaskError": "Task not completed. Please try again later.",
   "deleteTaskLoading": "Deleting task...",
   "deleteTaskSuccess": "Task deleted successfully",
   "deleteTaskError": "Task not deleted. Please try again later."
