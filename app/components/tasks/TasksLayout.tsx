@@ -39,6 +39,7 @@ const TasksLayout: React.FC<{}> = () => {
             return (
               <TaskCard
                 key={task.id}
+                id={task.id as string}
                 name={task.name}
                 description={task.description}
                 isDone={task.isDone}

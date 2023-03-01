@@ -1,12 +1,14 @@
 import { Switch } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import SubHeading from '~/core/ui/SubHeading';
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PencilIcon } from '@heroicons/react/24/outline';
 import IconButton from '~/core/ui/IconButton';
 import { formatDistance } from 'date-fns';
 import { Trans } from 'react-i18next';
+import DeleteTaskButton from './DeleteTaskButton';
 
 const TaskCard: React.FCC<{
+  id: string;
   name: string;
   description: string;
   dueDate: Date;
@@ -14,7 +16,7 @@ const TaskCard: React.FCC<{
   createdAt: Date;
   updatedAt?: Date;
   createdBy: string;
-}> = ({ name, description, dueDate, isDone, createdAt, createdBy }) => {
+}> = ({ id, name, description, dueDate, isDone, createdAt, createdBy }) => {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -69,9 +71,7 @@ const TaskCard: React.FCC<{
           <IconButton>
             <PencilIcon className="h-6" />
           </IconButton>
-          <IconButton>
-            <TrashIcon className="h-6" />
-          </IconButton>
+          <DeleteTaskButton id={id} />
         </div>
       </div>
     </div>

@@ -6,5 +6,8 @@
   "createTaskModalHeading": "Create Task",
   "loadingList": "Loading...",
   "dueDate": "Due",
-  "createdAt": "Created"
+  "createdAt": "Created",
+  "deleteTaskLoading": "Deleting task...",
+  "deleteTaskSuccess": "Task deleted successfully",
+  "deleteTaskError": "Task not deleted. Please try again later."
 }
