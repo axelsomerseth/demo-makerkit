@@ -65,10 +65,9 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
 
   if (status === 'success') {
     if (task !== undefined) {
-      console.log(task);
       setValue('name', task?.name);
       setValue('description', task?.description);
-      setValue('dueDate', datetimeLocal(defaultDueDate));
+      setValue('dueDate', setDatetimeLocal(task?.dueDate.toDate()));
     }
   }
 
@@ -147,7 +146,7 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
   );
 };
 
-function datetimeLocal(date: Date) {
+function setDatetimeLocal(date: Date) {
   const dtString = new Date(date);
   dtString.setMinutes(dtString.getMinutes() - dtString.getTimezoneOffset());
   return dtString.toISOString().slice(0, 16);

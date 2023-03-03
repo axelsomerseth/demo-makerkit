@@ -1,5 +1,7 @@
 import UpdateTaskModal from '~/components/tasks/UpdateTaskModal';
 import { useParams } from '@remix-run/react';
+import ClientOnly from '~/core/ui/ClientOnly';
+import AppContainer from '~/components/AppContainer';
 
 function EditTaskPage() {
   const params = useParams();
@@ -14,7 +16,11 @@ function EditTaskPage() {
 
   return (
     <>
-      <UpdateTaskModal taskId={params.taskId as string} />
+      <ClientOnly>
+        <AppContainer>
+          <UpdateTaskModal taskId={params.taskId as string} />
+        </AppContainer>
+      </ClientOnly>
     </>
   );
 }

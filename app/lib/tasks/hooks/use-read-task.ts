@@ -1,5 +1,5 @@
 import { doc } from 'firebase/firestore';
-import { useFirestore, useFirestoreDocDataOnce } from 'reactfire';
+import { useFirestore, useFirestoreDocData } from 'reactfire';
 import { TASKS_COLLECTION } from '~/lib/firestore-collections';
 
 import type { DocumentReference } from 'firebase/firestore';
@@ -13,7 +13,7 @@ function useReadTask(taskId: string) {
     TASKS_COLLECTION,
     `/${taskId}`
   ) as DocumentReference<Task>;
-  return useFirestoreDocDataOnce<Task>(docRef, {
+  return useFirestoreDocData<Task>(docRef, {
     idField: 'id',
     initialData: undefined,
   });
