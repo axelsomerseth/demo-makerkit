@@ -23,7 +23,7 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
     defaultValues: {
       name: '',
       description: '',
-      dueDate: defaultDueDate,
+      dueDate: '',
     },
   });
 
@@ -49,15 +49,17 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
     reset({
       name: '',
       description: '',
-      dueDate: defaultDueDate,
+      dueDate: '',
     });
   }, [reset]);
 
   if (status === 'success') {
-    console.log(task?.dueDate.toDate());
-    setValue('name', task?.name);
-    setValue('description', task?.description);
-    setValue('dueDate',new Date( task?.dueDate.toDate().toISOString()));
+    if (task !== undefined) {
+      console.log(task);
+      setValue('name', task?.name);
+      setValue('description', task?.description);
+      setValue('dueDate', datetimeLocal(defaultDueDate));
+    }
   }
 
   return (
@@ -66,7 +68,7 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
         <SubHeading>Loading...</SubHeading>
       </If>
       <If condition={status === 'error'}>
-        <SubHeading> An error has occured</SubHeading>
+        <SubHeading>An error has occurred</SubHeading>
         <p>{error?.message}</p>
       </If>
       <If condition={status === 'success'}>
@@ -74,7 +76,11 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
           className={'space-y-2'}
           data-cy={'update-task-form'}
           onSubmit={handleSubmit((value) => {
-            return onSubmit(value.name, value.description, value.dueDate);
+            return onSubmit(
+              value.name,
+              value.description,
+              new Date(value.dueDate)
+            );
           })}
         >
           <TextField>
@@ -130,5 +136,11 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
     </>
   );
 };
+
+function datetimeLocal(date: Date) {
+  const dtString = new Date(date);
+  dtString.setMinutes(dtString.getMinutes() - dtString.getTimezoneOffset());
+  return dtString.toISOString().slice(0, 16);
+}
 
 export default UpdateTaskForm;
