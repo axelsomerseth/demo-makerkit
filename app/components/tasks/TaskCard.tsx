@@ -1,13 +1,12 @@
 import { Switch } from '@headlessui/react';
 import { useState } from 'react';
 import SubHeading from '~/core/ui/SubHeading';
-import { PencilIcon } from '@heroicons/react/24/outline';
-import IconButton from '~/core/ui/IconButton';
 import { formatDistance } from 'date-fns';
 import { Trans } from 'react-i18next';
 import DeleteTaskButton from './DeleteTaskButton';
 import useCompleteTask from '~/lib/tasks/hooks/use-complete-task';
 import type { Task } from '~/lib/tasks/types/task';
+import UpdateTaskButton from './UpdateTaskButton';
 
 const TaskCard: React.FCC<{
   task: Task;
@@ -73,9 +72,7 @@ const TaskCard: React.FCC<{
               />
             </Switch>
           </div>
-          <IconButton>
-            <PencilIcon className="h-6" />
-          </IconButton>
+          <UpdateTaskButton task={task} />
           <DeleteTaskButton id={task.id as string} />
         </div>
       </div>
