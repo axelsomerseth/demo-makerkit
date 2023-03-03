@@ -7,6 +7,9 @@ import { toast } from 'react-hot-toast';
 import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from '@remix-run/react';
 import useUpdateTask from '~/lib/tasks/hooks/use-update-task';
+import useReadTask from '~/lib/tasks/hooks/use-read-task';
+import If from '~/core/ui/If';
+import SubHeading from '~/core/ui/SubHeading';
 
 const defaultDueDate = new Date();
 defaultDueDate.setHours(defaultDueDate.getHours() + 3);
@@ -14,8 +17,9 @@ defaultDueDate.setHours(defaultDueDate.getHours() + 3);
 const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
   const { t } = useTranslation();
   const navigation = useNavigate();
+  const { data: task, error, status } = useReadTask(taskId);
   const [updateTask, requestState] = useUpdateTask();
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, setValue } = useForm({
     defaultValues: {
       name: '',
       description: '',
@@ -41,12 +45,6 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
     );
   };
 
-  // similar to componentDidMount
-  useEffect(() => {
-    // TODO: call a hook to get the data from the database using the `taskId` prop.
-  }, []);
-
-  // similar to componentDidUpdate
   useEffect(() => {
     reset({
       name: '',
@@ -55,63 +53,81 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
     });
   }, [reset]);
 
+  if (status === 'success') {
+    console.log(task?.dueDate.toDate());
+    setValue('name', task?.name);
+    setValue('description', task?.description);
+    setValue('dueDate',new Date( task?.dueDate.toDate().toISOString()));
+  }
+
   return (
-    <form
-      className={'space-y-2'}
-      data-cy={'update-task-form'}
-      onSubmit={handleSubmit((value) => {
-        return onSubmit(value.name, value.description, value.dueDate);
-      })}
-    >
-      <TextField>
-        <TextField.Label>
-          Name
-          <TextField.Input
-            innerRef={nameControl.ref}
-            name={nameControl.name}
-            required={nameControl.required}
-            onBlur={nameControl.onBlur}
-            onChange={nameControl.onChange}
-            placeholder="Enter a task name"
-            data-cy={'task-name-input'}
-          />
-        </TextField.Label>
-      </TextField>
+    <>
+      <If condition={status === 'loading'}>
+        <SubHeading>Loading...</SubHeading>
+      </If>
+      <If condition={status === 'error'}>
+        <SubHeading> An error has occured</SubHeading>
+        <p>{error?.message}</p>
+      </If>
+      <If condition={status === 'success'}>
+        <form
+          className={'space-y-2'}
+          data-cy={'update-task-form'}
+          onSubmit={handleSubmit((value) => {
+            return onSubmit(value.name, value.description, value.dueDate);
+          })}
+        >
+          <TextField>
+            <TextField.Label>
+              Name
+              <TextField.Input
+                innerRef={nameControl.ref}
+                name={nameControl.name}
+                required={nameControl.required}
+                onBlur={nameControl.onBlur}
+                onChange={nameControl.onChange}
+                placeholder="Enter a task name"
+                data-cy={'task-name-input'}
+              />
+            </TextField.Label>
+          </TextField>
 
-      <TextField>
-        <TextField.Label>
-          Description
-          <TextField.Input
-            innerRef={descriptionControl.ref}
-            name={descriptionControl.name}
-            required={descriptionControl.required}
-            onBlur={descriptionControl.onBlur}
-            onChange={descriptionControl.onChange}
-            placeholder="Please enter a description"
-            data-cy={'task-description-input'}
-          />
-        </TextField.Label>
-      </TextField>
+          <TextField>
+            <TextField.Label>
+              Description
+              <TextField.Input
+                innerRef={descriptionControl.ref}
+                name={descriptionControl.name}
+                required={descriptionControl.required}
+                onBlur={descriptionControl.onBlur}
+                onChange={descriptionControl.onChange}
+                placeholder="Please enter a description"
+                data-cy={'task-description-input'}
+              />
+            </TextField.Label>
+          </TextField>
 
-      <TextField>
-        <TextField.Label>
-          Due date
-          <TextField.Input
-            type={'datetime-local'}
-            innerRef={dueDateControl.ref}
-            name={dueDateControl.name}
-            required={dueDateControl.required}
-            onBlur={dueDateControl.onBlur}
-            onChange={dueDateControl.onChange}
-            data-cy={'task-due-date-input'}
-          />
-        </TextField.Label>
-      </TextField>
+          <TextField>
+            <TextField.Label>
+              Due date
+              <TextField.Input
+                type={'datetime-local'}
+                innerRef={dueDateControl.ref}
+                name={dueDateControl.name}
+                required={dueDateControl.required}
+                onBlur={dueDateControl.onBlur}
+                onChange={dueDateControl.onChange}
+                data-cy={'task-due-date-input'}
+              />
+            </TextField.Label>
+          </TextField>
 
-      <Button className="w-full" loading={requestState.loading}>
-        <Trans i18nKey={'task:updateTaskSubmitLabel'} />
-      </Button>
-    </form>
+          <Button className="w-full" loading={requestState.loading}>
+            <Trans i18nKey={'task:updateTaskSubmitLabel'} />
+          </Button>
+        </form>
+      </If>
+    </>
   );
 };
 
