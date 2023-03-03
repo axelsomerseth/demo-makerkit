@@ -33,10 +33,20 @@ const UpdateTaskForm: React.FC<{ taskId: string }> = ({ taskId }) => {
 
   const onSubmit = async (name: string, description: string, dueDate: Date) => {
     return toast.promise(
-      updateTask(name, description, Timestamp.fromDate(new Date(dueDate))),
+      updateTask(
+        taskId,
+        name,
+        description,
+        Timestamp.fromDate(new Date(dueDate))
+      ),
       {
         loading: t<string>('task:updateTaskLoading'),
         success: () => {
+          reset({
+            name: '',
+            description: '',
+            dueDate: '',
+          });
           navigation(-1);
           return t<string>('task:updateTaskSuccess');
         },
