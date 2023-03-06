@@ -1,9 +1,11 @@
+import CreateTaskModal from '~/components/tasks/CreateTaskModal';
+
 function NewTaskPage() {
-    return(
-        <>
-        <h2>To do render task modal here</h2>
-        </>
-    )
+  return (
+    <>
+      <CreateTaskModal />
+    </>
+  );
 }
 
 export default NewTaskPage;
