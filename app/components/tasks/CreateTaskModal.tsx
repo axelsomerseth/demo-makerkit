@@ -2,6 +2,7 @@ import { useNavigate } from '@remix-run/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Modal from '~/core/ui/Modal';
+import CreateTaskForm from './CreateTaskForm';
 
 const CreateTaskModal: React.FC<{}> = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -20,7 +21,7 @@ const CreateTaskModal: React.FC<{}> = () => {
         isOpen={isOpen}
         setIsOpen={onClose}
       >
-        <p>TODO: create a form </p>
+        <CreateTaskForm />
       </Modal>
     </>
   );

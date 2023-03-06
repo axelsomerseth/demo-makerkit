@@ -1,4 +1,7 @@
 {
-    "createTaskButtonLabel": "Create Task",
-    "createTaskModalHeading": "Create Task"
+  "createTaskButtonLabel": "Create Task",
+  "createTaskModalHeading": "Create Task",
+  "titleInputLabel": "Title",
+  "descriptionInputLabel": "Description",
+  "dueDateInputLabel": "Due Date"
 }

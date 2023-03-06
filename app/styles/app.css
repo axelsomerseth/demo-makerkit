@@ -70,4 +70,12 @@
     position: relative;
     top: 3rem;
   }
+
+  /* Dark theme for inputs including datepicker */
+  .input-dark {
+    color-scheme: dark;
+  }
+  input {
+    @apply dark:input-dark;
+  }
 }
