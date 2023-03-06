@@ -1,21 +1,17 @@
-import useRequestState from '~/core/hooks/use-request-state';
-
-import { doc, Timestamp, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { useCallback } from 'react';
 import { useFirestore } from 'reactfire';
 import { TASKS_COLLECTION } from '~/lib/firestore-collections';
+import useRequestState from '~/core/hooks/use-request-state';
 
+import type { Timestamp } from 'firebase/firestore';
 import type { FirebaseError } from 'firebase/app';
 
 function useUpdateTask() {
   const { state, setData, setError, setLoading } = useRequestState();
-  // TODO: write down the steps you will follow to update a task.
-  //1 referencia de firestore
   const firestore = useFirestore();
-  //2 referencia del documento
-  //3 actualizar el documento
 
-  const updateTask = useCallback(
+  const updateTaskCallback = useCallback(
     async (
       taskId: string,
       name: string,
@@ -32,10 +28,13 @@ function useUpdateTask() {
         setError((error as FirebaseError).message);
       }
     },
-    [setData, setError, setLoading]
+    [setData, setError, setLoading, firestore]
   );
 
-  return [updateTask, state] as [typeof updateTask, typeof state];
+  return [updateTaskCallback, state] as [
+    typeof updateTaskCallback,
+    typeof state
+  ];
 }
 
 export default useUpdateTask;
