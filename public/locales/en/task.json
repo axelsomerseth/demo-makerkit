@@ -3,5 +3,8 @@
   "createTaskModalHeading": "Create Task",
   "titleInputLabel": "Title",
   "descriptionInputLabel": "Description",
-  "dueDateInputLabel": "Due Date"
+  "dueDateInputLabel": "Due Date",
+  "createTaskLoading": "Creating Task...",
+  "createTaskError": "Task not created. Please try again.",
+  "createTaskSuccess": "Task created successfully."
 }

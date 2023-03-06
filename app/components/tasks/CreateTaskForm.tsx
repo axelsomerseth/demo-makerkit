@@ -1,14 +1,22 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import Button from '~/core/ui/Button';
 import TextField from '~/core/ui/TextField';
+import useCreateTask from '~/lib/tasks/types/hooks/use-create-task';
 import setDatetimeLocal from './datetime';
+import OrganizationContext from '~/lib/contexts/organization';
+import toast from 'react-hot-toast';
+import { useNavigate } from '@remix-run/react';
 
 const defaultDueDate = new Date();
 defaultDueDate.setDate(defaultDueDate.getDate() + 1);
 
 const CreateTaskForm: React.FC<{}> = () => {
+  const { t } = useTranslation();
+  const navigation = useNavigate();
+  const [createTask, requestState] = useCreateTask();
+  const { organization } = useContext(OrganizationContext);
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       title: '',
@@ -28,12 +36,27 @@ const CreateTaskForm: React.FC<{}> = () => {
     title: string,
     description: string,
     dueDate: string,
-    done: boolean,
-    organizationId: string
+    done: boolean
   ) => {
-    console.log(title, description, dueDate, done, organizationId);
+    console.log(title, description, dueDate, done, organization?.id);
 
     // TODO: call the callback hook createTask
+    const promise = createTask(
+      title,
+      description,
+      new Date(dueDate),
+      done,
+      organization?.id as string
+    );
+
+    toast.promise(promise, {
+      loading: t<string>('task:createTaskLoading'),
+      success: () => {
+        navigation(-1);
+        return t<string>('task:createTaskSuccess')
+      },
+      error: t<string>('task:createTaskError'),
+    });
 
     reset({
       title: '',
@@ -59,13 +82,7 @@ const CreateTaskForm: React.FC<{}> = () => {
       <form
         className="space-y-3"
         onSubmit={handleSubmit((value) => {
-          onSubmit(
-            value.title,
-            value.description,
-            value.dueDate,
-            value.done,
-            value.organizationId
-          );
+          onSubmit(value.title, value.description, value.dueDate, value.done);
         })}
       >
         <TextField>
@@ -107,7 +124,7 @@ const CreateTaskForm: React.FC<{}> = () => {
             />
           </TextField.Label>
         </TextField>
-        <Button className="w-full">
+        <Button className="w-full" loading={requestState.loading}>
           <Trans i18nKey={'task:createTaskButtonLabel'} />
         </Button>
       </form>

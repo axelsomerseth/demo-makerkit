@@ -88,6 +88,10 @@ service cloud.firestore {
       return isSignedIn() && fieldsNotInCreateAction(['members', 'subscription']);
     }
 
+    function canCreateTask(){
+      return isSignedIn();
+    }
+
     match /organizations/{organizationId} {
       allow create: if canCreateOrganization();
       allow read: if userId() in existingData().members;
@@ -101,6 +105,10 @@ service cloud.firestore {
 
     match /users/{user} {
       allow read: if userId() == user;
+    }
+
+    match /tasks/{taskId}{
+      allow create: if canCreateTask();
     }
   }
 }
