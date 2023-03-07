@@ -1,10 +1,11 @@
-import { FirebaseError } from 'firebase/app';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { useCallback } from 'react';
 import { useFirestore, useUser } from 'reactfire';
 import useRequestState from '~/core/hooks/use-request-state';
 import { TASKS_COLLECTION } from '~/lib/firestore-collections';
-import { Task } from '../task';
+
+import type { FirebaseError } from 'firebase/app';
+import type { Task } from '../types/task';
 
 function useCreateTask() {
   const firestore = useFirestore();
@@ -42,10 +43,13 @@ function useCreateTask() {
         console.error(error);
       }
     },
-    [setData, setError, setLoading]
+    [setData, setError, setLoading, firestore, user?.uid]
   );
 
-  return [createTaskCallback, state] as [typeof createTaskCallback, typeof state];
+  return [createTaskCallback, state] as [
+    typeof createTaskCallback,
+    typeof state
+  ];
 }
 
 export default useCreateTask;

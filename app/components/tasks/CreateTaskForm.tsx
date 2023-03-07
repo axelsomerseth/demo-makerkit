@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Trans, useTranslation } from 'react-i18next';
 import Button from '~/core/ui/Button';
 import TextField from '~/core/ui/TextField';
-import useCreateTask from '~/lib/tasks/types/hooks/use-create-task';
+import useCreateTask from '~/lib/tasks/hooks/use-create-task';
 import setDatetimeLocal from './datetime';
 import OrganizationContext from '~/lib/contexts/organization';
 import toast from 'react-hot-toast';
