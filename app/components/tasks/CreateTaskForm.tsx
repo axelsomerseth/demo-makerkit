@@ -38,9 +38,6 @@ const CreateTaskForm: React.FC<{}> = () => {
     dueDate: string,
     done: boolean
   ) => {
-    console.log(title, description, dueDate, done, organization?.id);
-
-    // TODO: call the callback hook createTask
     const promise = createTask(
       title,
       description,
@@ -53,7 +50,7 @@ const CreateTaskForm: React.FC<{}> = () => {
       loading: t<string>('task:createTaskLoading'),
       success: () => {
         navigation(-1);
-        return t<string>('task:createTaskSuccess')
+        return t<string>('task:createTaskSuccess');
       },
       error: t<string>('task:createTaskError'),
     });
@@ -78,57 +75,55 @@ const CreateTaskForm: React.FC<{}> = () => {
   }, [reset]);
 
   return (
-    <>
-      <form
-        className="space-y-3"
-        onSubmit={handleSubmit((value) => {
-          onSubmit(value.title, value.description, value.dueDate, value.done);
-        })}
-      >
-        <TextField>
-          <TextField.Label>
-            <Trans i18nKey={'task:titleInputLabel'} />
-            <TextField.Input
-              required={titleControl.required}
-              innerRef={titleControl.ref}
-              name={titleControl.name}
-              onBlur={titleControl.onBlur}
-              onChange={titleControl.onChange}
-              placeholder="Enter the task title"
-            />
-          </TextField.Label>
-        </TextField>
-        <TextField>
-          <TextField.Label>
-            <Trans i18nKey={'task:descriptionInputLabel'} />
-            <TextField.Input
-              required={descriptionControl.required}
-              innerRef={descriptionControl.ref}
-              name={descriptionControl.name}
-              onBlur={descriptionControl.onBlur}
-              onChange={descriptionControl.onChange}
-              placeholder="Enter the task description"
-            />
-          </TextField.Label>
-        </TextField>
-        <TextField>
-          <TextField.Label>
-            <Trans i18nKey={'task:dueDateInputLabel'} />
-            <TextField.Input
-              type={'datetime-local'}
-              required={dueDateControl.required}
-              innerRef={dueDateControl.ref}
-              name={dueDateControl.name}
-              onBlur={dueDateControl.onBlur}
-              onChange={dueDateControl.onChange}
-            />
-          </TextField.Label>
-        </TextField>
-        <Button className="w-full" loading={requestState.loading}>
-          <Trans i18nKey={'task:createTaskButtonLabel'} />
-        </Button>
-      </form>
-    </>
+    <form
+      className="space-y-3"
+      onSubmit={handleSubmit((value) => {
+        onSubmit(value.title, value.description, value.dueDate, value.done);
+      })}
+    >
+      <TextField>
+        <TextField.Label>
+          <Trans i18nKey={'task:titleInputLabel'} />
+          <TextField.Input
+            required={titleControl.required}
+            innerRef={titleControl.ref}
+            name={titleControl.name}
+            onBlur={titleControl.onBlur}
+            onChange={titleControl.onChange}
+            placeholder="Enter the task title"
+          />
+        </TextField.Label>
+      </TextField>
+      <TextField>
+        <TextField.Label>
+          <Trans i18nKey={'task:descriptionInputLabel'} />
+          <TextField.Input
+            required={descriptionControl.required}
+            innerRef={descriptionControl.ref}
+            name={descriptionControl.name}
+            onBlur={descriptionControl.onBlur}
+            onChange={descriptionControl.onChange}
+            placeholder="Enter the task description"
+          />
+        </TextField.Label>
+      </TextField>
+      <TextField>
+        <TextField.Label>
+          <Trans i18nKey={'task:dueDateInputLabel'} />
+          <TextField.Input
+            type={'datetime-local'}
+            required={dueDateControl.required}
+            innerRef={dueDateControl.ref}
+            name={dueDateControl.name}
+            onBlur={dueDateControl.onBlur}
+            onChange={dueDateControl.onChange}
+          />
+        </TextField.Label>
+      </TextField>
+      <Button className="w-full" loading={requestState.loading}>
+        <Trans i18nKey={'task:createTaskButtonLabel'} />
+      </Button>
+    </form>
   );
 };
 

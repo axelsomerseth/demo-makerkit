@@ -15,15 +15,13 @@ const CreateTaskModal: React.FC<{}> = () => {
   };
 
   return (
-    <>
-      <Modal
-        heading={t<string>('task:createTaskModalHeading')}
-        isOpen={isOpen}
-        setIsOpen={onClose}
-      >
-        <CreateTaskForm />
-      </Modal>
-    </>
+    <Modal
+      heading={t<string>('task:createTaskModalHeading')}
+      isOpen={isOpen}
+      setIsOpen={onClose}
+    >
+      <CreateTaskForm />
+    </Modal>
   );
 };
 
