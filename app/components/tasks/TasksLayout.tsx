@@ -1,3 +1,4 @@
+import SectionSeparator from '~/core/ui/SectionSeparator';
 import CreateTaskButton from './CreateTaskButton';
 import ListTasks from './ListTasks';
 
@@ -7,6 +8,7 @@ const TasksLayout: React.FC<{}> = () => {
       <div className="flex-initial">
         <CreateTaskButton></CreateTaskButton>
       </div>
+      <SectionSeparator />
       <div className="w-full flex-initial">
         <ListTasks></ListTasks>
       </div>

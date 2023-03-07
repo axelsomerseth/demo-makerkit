@@ -12,32 +12,16 @@ const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
   return (
     <div className="m-3 rounded-lg shadow-lg">
       <div className="flex justify-between">
-        <div className="m-5 flex-initial">
+        <div className={(enabled ? 'blur-sm ' : '') + 'm-5 flex-initial'}>
           <div className="flex flex-col">
             <div className="flex-initial">
-              <span
-                className={
-                  (enabled ? 'line-through ' : '') + 'text-lg font-semibold'
-                }
-              >
-                {task.title}
-              </span>
+              <span className={'text-lg font-semibold'}>{task.title}</span>
             </div>
             <div className="flex-initial">
-              <span
-                className={
-                  (enabled ? 'line-through ' : '') + 'text-sm font-normal'
-                }
-              >
-                {task.description}
-              </span>
+              <span className={'text-sm font-normal'}>{task.description}</span>
             </div>
             <div className="flex-initial">
-              <span
-                className={
-                  (enabled ? 'line-through ' : '') + 'text-sm font-normal'
-                }
-              >
+              <span className={'text-sm font-normal'}>
                 {'Due ' +
                   formatDistance(task.dueDate.toDate(), new Date(), {
                     addSuffix: true,
@@ -71,12 +55,12 @@ const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
                 />
               </Switch>
             </div>
-            <div className="flex-initial">
+            <div className={(enabled ? 'blur-sm ' : '') + 'flex-initial'}>
               <IconButton>
                 <PencilIcon className={'h-6'} />
               </IconButton>
             </div>
-            <div className="flex-initial">
+            <div className={(enabled ? 'blur-sm ' : '') + 'flex-initial'}>
               <IconButton>
                 <TrashIcon className={'h-6'} />
               </IconButton>
