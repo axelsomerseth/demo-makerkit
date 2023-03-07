@@ -96,6 +96,10 @@ service cloud.firestore {
       return isSignedIn();
     }
 
+    function canCompleteTask(){
+      return isSignedIn();
+    }
+
     match /organizations/{organizationId} {
       allow create: if canCreateOrganization();
       allow read: if userId() in existingData().members;
@@ -114,6 +118,7 @@ service cloud.firestore {
     match /tasks/{taskId}{
       allow create: if canCreateTask();
       allow read: if canReadTask();
+      allow update: if canCompleteTask();
     }
   }
 }

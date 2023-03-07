@@ -5,9 +5,16 @@ import IconButton from '~/core/ui/IconButton';
 import { formatDistance } from 'date-fns';
 
 import type { Task } from '~/lib/tasks/types/task';
+import useCompleteTask from '~/lib/tasks/hooks/use-complete-task';
 
 const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
   const [enabled, setEnabled] = useState(task.done);
+  const [completeTask] = useCompleteTask();
+
+  const toggleComplete = () => {
+    setEnabled((previousState) => !previousState);
+    completeTask(task);
+  }
 
   return (
     <div className="m-3 rounded-lg shadow-lg">
@@ -43,7 +50,7 @@ const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
             <div className="flex-initial space-y-1">
               <Switch
                 checked={enabled}
-                onChange={setEnabled}
+                onChange={toggleComplete}
                 className={`${
                   enabled ? 'bg-primary-500' : 'bg-gray-200'
                 } relative inline-flex h-6 w-11 items-center rounded-full`}
