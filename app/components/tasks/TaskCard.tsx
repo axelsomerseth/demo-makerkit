@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PencilIcon } from '@heroicons/react/24/outline';
 import IconButton from '~/core/ui/IconButton';
 import { formatDistance } from 'date-fns';
 
 import type { Task } from '~/lib/tasks/types/task';
 import useCompleteTask from '~/lib/tasks/hooks/use-complete-task';
+import DeleteTaskButton from './DeleteTaskButton';
 
 const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
   const [enabled, setEnabled] = useState(task.done);
@@ -14,7 +15,7 @@ const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
   const toggleComplete = () => {
     setEnabled((previousState) => !previousState);
     completeTask(task);
-  }
+  };
 
   return (
     <div className="m-3 rounded-lg shadow-lg">
@@ -68,9 +69,7 @@ const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
               </IconButton>
             </div>
             <div className={(enabled ? 'blur-sm ' : '') + 'flex-initial'}>
-              <IconButton>
-                <TrashIcon className={'h-6'} />
-              </IconButton>
+              <DeleteTaskButton task={task} />
             </div>
           </div>
         </div>

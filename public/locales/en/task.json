@@ -6,5 +6,8 @@
   "dueDateInputLabel": "Due Date",
   "createTaskLoading": "Creating Task...",
   "createTaskError": "Task not created. Please try again.",
-  "createTaskSuccess": "Task created successfully."
+  "createTaskSuccess": "Task created successfully.",
+  "deletedTaskLoading": "Deleting Task...",
+  "deletedTaskError": "Task not deleted. Please try again.",
+  "deletedTaskSuccess": "Task deleted successfully."
 }

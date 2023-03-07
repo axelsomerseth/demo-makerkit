@@ -100,6 +100,10 @@ service cloud.firestore {
       return isSignedIn();
     }
 
+    function canDeleteTask() {
+      return isSignedIn();
+    }
+
     match /organizations/{organizationId} {
       allow create: if canCreateOrganization();
       allow read: if userId() in existingData().members;
@@ -119,6 +123,7 @@ service cloud.firestore {
       allow create: if canCreateTask();
       allow read: if canReadTask();
       allow update: if canCompleteTask();
+      allow delete: if canDeleteTask();
     }
   }
 }
