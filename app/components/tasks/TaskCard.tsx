@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import { PencilIcon } from '@heroicons/react/24/outline';
-import IconButton from '~/core/ui/IconButton';
 import { formatDistance } from 'date-fns';
 
 import type { Task } from '~/lib/tasks/types/task';
 import useCompleteTask from '~/lib/tasks/hooks/use-complete-task';
 import DeleteTaskButton from './DeleteTaskButton';
+import UpdateTaskButton from './UpdateTaskButton';
 
 const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
   const [enabled, setEnabled] = useState(task.done);
@@ -18,7 +17,7 @@ const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
   };
 
   return (
-    <div className="m-3 rounded-lg shadow-lg">
+    <div className="m-3 rounded-lg shadow-lg dark:bg-neutral-900">
       <div className="flex justify-between">
         <div className={(enabled ? 'blur-sm ' : '') + 'm-5 flex-initial'}>
           <div className="flex flex-col">
@@ -64,9 +63,7 @@ const TaskCard: React.FCC<{ task: Task }> = ({ task }) => {
               </Switch>
             </div>
             <div className={(enabled ? 'blur-sm ' : '') + 'flex-initial'}>
-              <IconButton>
-                <PencilIcon className={'h-6'} />
-              </IconButton>
+              <UpdateTaskButton task={task} />
             </div>
             <div className={(enabled ? 'blur-sm ' : '') + 'flex-initial'}>
               <DeleteTaskButton task={task} />
