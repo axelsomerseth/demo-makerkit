@@ -14,7 +14,7 @@ function useFetchTask(taskId: string) {
     `/${taskId}`
   ) as DocumentReference<Task>;
 
-  return useFirestoreDocData(docRef);
+  return useFirestoreDocData(docRef, { idField: 'id' });
 }
 
 export default useFetchTask;
