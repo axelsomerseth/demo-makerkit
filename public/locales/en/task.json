@@ -7,6 +7,11 @@
   "createTaskLoading": "Creating Task...",
   "createTaskError": "Task not created. Please try again.",
   "createTaskSuccess": "Task created successfully.",
+  "updateTaskModalHeading": "Update Task",
+  "updateTaskButtonLabel": "Update Task",
+  "updateTaskLoading": "Updating Task...",
+  "updateTaskError": "Task not updated. Please try again.",
+  "updateTaskSuccess": "Task updated successfully.",
   "deletedTaskLoading": "Deleting Task...",
   "deletedTaskError": "Task not deleted. Please try again.",
   "deletedTaskSuccess": "Task deleted successfully."
