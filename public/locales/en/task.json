@@ -1,0 +1,8 @@
+{
+  "createTaskModalHeading": "Add Task",
+  "titleInputLabel": "Title",
+  "descriptionInputLabel": "Description",
+  "dueDateInputLabel": "Due Date",
+  "createTaskSubmitLabel": "Add Task"
+  
+}
