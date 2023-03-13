@@ -15,17 +15,17 @@ const NAVIGATION_CONFIG = {
       },
     },
     {
-      label: 'common:settingsTabLabel',
-      path: '/settings',
-      Icon: ({ className }: { className: string }) => {
-        return <Cog8ToothIcon className={className} />;
-      },
-    },
-    {
       label: 'common:tasksTabLabel',
       path: '/tasks',
       Icon: ({ className }: { className: string }) => {
         return <DocumentCheckIcon className={className} />;
+      },
+    },
+    {
+      label: 'common:settingsTabLabel',
+      path: '/settings',
+      Icon: ({ className }: { className: string }) => {
+        return <Cog8ToothIcon className={className} />;
       },
     },
   ],

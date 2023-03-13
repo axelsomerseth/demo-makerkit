@@ -1,8 +1,16 @@
+import CreateTaskButton from './CreateTaskButton';
+import ListTasks from './ListTasks';
+
 const TasksLayout: React.FC<{}> = () => {
   return (
-    <>
-      <h2>hola mundo</h2>
-    </>
+    <div className="flex flex-col items-center">
+      <div className="flex-initial">
+        <CreateTaskButton />
+      </div>
+      <div className="flex-initial">
+        <ListTasks />
+      </div>
+    </div>
   );
 };
 
