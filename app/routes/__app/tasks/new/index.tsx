@@ -1,5 +1,11 @@
+import CreateTaskModal from '~/components/tasks/CreateTaskModal';
+
 function AddTaskPage() {
-  return <> </>;
+  return (
+    <>
+      <CreateTaskModal />
+    </>
+  );
 }
 
 export default AddTaskPage;
