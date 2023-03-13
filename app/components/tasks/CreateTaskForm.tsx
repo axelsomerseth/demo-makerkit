@@ -19,67 +19,66 @@ const CreateTaskForm: React.FC<{}> = () => {
 
   useEffect(() => {
     reset({ title: '', description: '', dueDate: new Date() });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit((values) => {
-          return onSubmit(values.title, values.description, values.dueDate);
-        })}
-      >
-        <TextField>
-          <TextField.Label>
-            <Trans i18nKey={'task:titleInputLabel'} />
-            <TextField.Input
-              type="text"
-              name={titleControl.name}
-              required={titleControl.required}
-              innerRef={titleControl.ref}
-              onChange={titleControl.onChange}
-              onBlur={titleControl.onBlur}
-              placeholder="Enter the task title"
-              data-cy="title-input"
-            />
-          </TextField.Label>
-        </TextField>
+    <form
+      onSubmit={handleSubmit((values) => {
+        return onSubmit(values.title, values.description, values.dueDate);
+      })}
+    >
+      <TextField>
+        <TextField.Label>
+          <Trans i18nKey={'task:titleInputLabel'} />
+          <TextField.Input
+            type="text"
+            name={titleControl.name}
+            required={titleControl.required}
+            innerRef={titleControl.ref}
+            onChange={titleControl.onChange}
+            onBlur={titleControl.onBlur}
+            placeholder="Enter the task title"
+            data-cy="title-input"
+          />
+        </TextField.Label>
+      </TextField>
 
-        <TextField>
-          <TextField.Label>
-            <Trans i18nKey={'task:descriptionInputLabel'} />
-            <TextField.Input
-              type="text"
-              name={descriptionControl.name}
-              required={descriptionControl.required}
-              innerRef={descriptionControl.ref}
-              onChange={descriptionControl.onChange}
-              onBlur={descriptionControl.onBlur}
-              placeholder="Enter a detailed description"
-              data-cy="description-input"
-            />
-          </TextField.Label>
-        </TextField>
+      <TextField>
+        <TextField.Label>
+          <Trans i18nKey={'task:descriptionInputLabel'} />
+          <TextField.Input
+            type="text"
+            name={descriptionControl.name}
+            required={descriptionControl.required}
+            innerRef={descriptionControl.ref}
+            onChange={descriptionControl.onChange}
+            onBlur={descriptionControl.onBlur}
+            placeholder="Enter a detailed description"
+            data-cy="description-input"
+          />
+        </TextField.Label>
+      </TextField>
 
-        <TextField>
-          <TextField.Label>
-            <Trans i18nKey={'task:dueDateInputLabel'} />
-            <TextField.Input
-              type="datetime-local"
-              name={dueDateControl.name}
-              required={dueDateControl.required}
-              innerRef={dueDateControl.ref}
-              onChange={dueDateControl.onChange}
-              onBlur={dueDateControl.onBlur}
-              data-cy="dueDate-input"
-            />
-          </TextField.Label>
-        </TextField>
+      <TextField>
+        <TextField.Label>
+          <Trans i18nKey={'task:dueDateInputLabel'} />
+          <TextField.Input
+            type="datetime-local"
+            name={dueDateControl.name}
+            required={dueDateControl.required}
+            innerRef={dueDateControl.ref}
+            onChange={dueDateControl.onChange}
+            onBlur={dueDateControl.onBlur}
+            data-cy="dueDate-input"
+          />
+        </TextField.Label>
+      </TextField>
 
-        <Button className="w-full">
-          <Trans i18nKey={'task:createTaskSubmitLabel'} />
-        </Button>
-      </form>
-    </>
+      <Button className="w-full">
+        <Trans i18nKey={'task:createTaskSubmitLabel'} />
+      </Button>
+    </form>
   );
 };
 
