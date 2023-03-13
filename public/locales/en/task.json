@@ -3,6 +3,8 @@
   "titleInputLabel": "Title",
   "descriptionInputLabel": "Description",
   "dueDateInputLabel": "Due Date",
-  "createTaskSubmitLabel": "Add Task"
-  
+  "createTaskSubmitLabel": "Add Task",
+  "createTaskLoading": "Creating task...",
+  "createTaskSuccess": "Task created successfully.",
+  "createTaskError": "Task not created. Please try again."
 }

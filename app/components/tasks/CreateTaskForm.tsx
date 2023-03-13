@@ -1,20 +1,44 @@
 import { useEffect } from 'react';
+import { useNavigate } from '@remix-run/react';
+import { Timestamp } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
-import { Trans } from 'react-i18next';
+import { toast } from 'react-hot-toast';
+import { Trans, useTranslation } from 'react-i18next';
 import Button from '~/core/ui/Button';
 import TextField from '~/core/ui/TextField';
+import useCreateTask from '~/lib/tasks/hooks/use-create-task';
 
 const CreateTaskForm: React.FC<{}> = () => {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: { title: '', description: '', dueDate: new Date() },
   });
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [createTask, requestState] = useCreateTask();
 
   const titleControl = register('title', { required: true });
   const descriptionControl = register('description', { required: true });
   const dueDateControl = register('dueDate', { required: true });
 
   const onSubmit = (title: string, description: string, dueDate: Date) => {
-    console.log(title, description, dueDate);
+    const newTask = {
+      title,
+      description,
+      dueDate: Timestamp.fromDate(new Date(dueDate)),
+    };
+    const promise = createTask(newTask);
+    console.log(promise);
+
+    toast.promise(promise, {
+      loading: t<string>('task:createTaskLoading'),
+      success: () => {
+        navigate(-1);
+        return t<string>('task:createTaskSuccess');
+      },
+      error: t<string>('task:createTaskError'),
+    });
+
+    reset({ title: '', description: '', dueDate: new Date() });
   };
 
   useEffect(() => {
@@ -75,7 +99,7 @@ const CreateTaskForm: React.FC<{}> = () => {
         </TextField.Label>
       </TextField>
 
-      <Button className="w-full">
+      <Button className="w-full" loading={requestState.loading}>
         <Trans i18nKey={'task:createTaskSubmitLabel'} />
       </Button>
     </form>
