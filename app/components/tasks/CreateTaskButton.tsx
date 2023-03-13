@@ -1,8 +1,11 @@
+import { useNavigate } from '@remix-run/react';
 import Button from '~/core/ui/Button';
 
 const CreateTaskButton: React.FC<{}> = () => {
+  const navigate = useNavigate();
+
   const onClick = () => {
-    console.log('TODO: redirect to create task route');
+    navigate('/tasks/new');
   };
 
   return (
