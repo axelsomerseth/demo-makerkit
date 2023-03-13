@@ -2,6 +2,7 @@
   "dashboardTabLabel": "Dashboard",
   "organizationSettingsTabLabel": "Organization",
   "settingsTabLabel": "Settings",
+  "tasksTabLabel": "Tasks",
   "profileSettingsTabLabel": "Profile",
   "subscriptionSettingsTabLabel": "Subscription",
   "emailAddress": "Email Address",
